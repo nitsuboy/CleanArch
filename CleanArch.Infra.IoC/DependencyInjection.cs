@@ -1,8 +1,12 @@
-﻿using CleanArch.Infra.Data.Context;
+﻿using CleanArch.Domain.Interfaces;
+using CleanArch.Infra.Data.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CleanArch.Infra.Data.Repositories;
+using CleanArch.Application.Interfaces;
+using CleanArch.Application.Services;
 
 namespace CleanArch.Infra.IoC
 {
@@ -20,7 +24,10 @@ namespace CleanArch.Infra.IoC
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+
             return services;
         }
     }

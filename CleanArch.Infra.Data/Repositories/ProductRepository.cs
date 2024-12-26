@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArch.Infra.Data.Repositories
 {
@@ -18,9 +19,30 @@ namespace CleanArch.Infra.Data.Repositories
             _context = context;
         }
 
-        public IEnumerable<Product> GetProducts() 
+        public async Task<IEnumerable<Product>> GetProducts() 
         {
-            return _context.Products;
+            return await _context.Products.ToListAsync();
+        }
+
+        public async Task<Product> GetById(int? id)
+        {
+            return await _context.Products.FindAsync(id);
+        }
+        public void Add(Product product) 
+        {
+            _context.Add(product);
+            _context.SaveChanges();
+        }
+        public void Update(Product product) 
+        {
+            _context.Update(product);
+            _context.SaveChanges();
+        }
+        public void Remove(int? id) 
+        {
+            _context.Remove(id);
+            _context.SaveChanges();
         }
     }
+
 }
