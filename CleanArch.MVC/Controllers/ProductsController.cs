@@ -71,7 +71,10 @@ namespace CleanArch.MVC.Controllers
         [HttpGet()]
         public async Task<IActionResult> Delete(int? id)
         {
-            if(id==null) return NotFound();
+            if(id == null)
+            {
+                return NotFound();
+            }
             var productViewModel = await _service.GetById(id);
 
             if(productViewModel == null) return NotFound();
@@ -82,6 +85,23 @@ namespace CleanArch.MVC.Controllers
         {
             _service.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var productVM = await _service.GetById(id);
+
+            if (productVM == null)
+            {
+                return NotFound();
+            }
+
+            return View(productVM);
         }
     }
 }

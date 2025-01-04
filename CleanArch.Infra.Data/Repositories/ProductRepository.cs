@@ -40,8 +40,11 @@ namespace CleanArch.Infra.Data.Repositories
         }
         public void Remove(int? id) 
         {
-            _context.Remove(id);
-            _context.SaveChanges();
+            if (id != null)
+            {
+                _context.Remove(_context.Products.Find(id));
+                _context.SaveChanges();
+            }
         }
     }
 

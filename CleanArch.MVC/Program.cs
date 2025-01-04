@@ -11,7 +11,6 @@ builder.Services.AddAutoMapperConfiguration();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-
 var app = builder.Build();
 
 // Apply any pending migrations
